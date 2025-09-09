@@ -27,12 +27,6 @@ namespace Employee.Backend.Migrations
                 {
                     table.PrimaryKey("PK_employees", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_employees_FirstName_LastName",
-                table: "employees",
-                columns: new[] { "FirstName", "LastName" },
-                unique: true);
         }
 
         /// <inheritdoc />

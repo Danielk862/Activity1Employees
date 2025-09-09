@@ -12,8 +12,6 @@ namespace Employee.Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<EmployeeModel>().HasIndex(x => new { x.FirstName, x.LastName }).IsUnique();
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250908180337_InitialDb")]
+    [Migration("20250909154346_InitialDb")]
     partial class InitialDb
     {
         /// <inheritdoc />
@@ -53,9 +53,6 @@ namespace Employee.Backend.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FirstName", "LastName")
-                        .IsUnique();
 
                     b.ToTable("employees");
                 });
