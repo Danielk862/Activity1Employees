@@ -19,6 +19,6 @@ namespace Employee.Backend.UnitsOfWork.Implementations
             await _employeesRepository.GetAsync(chars);
 
         public override async Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(PaginationDto pagination) => await _employeesRepository.GetAsync(pagination);
-        public override async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination) => await _employeesRepository.GetTotalRecords(pagination);
+        public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDto pagination) => await _employeesRepository.GetTotalRecordsAsync(pagination);
     }
 }

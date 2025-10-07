@@ -99,9 +99,9 @@ namespace Employee.Backend.Controllers
         }
 
         [HttpGet("totalRecords")]
-        public virtual async Task<IActionResult> GetTotalRFecords(PaginationDto pagination)
+        public virtual async Task<IActionResult> GetTotalRFecordsAsync([FromQuery] PaginationDto pagination)
         {
-            var action = await _unitOfWork.GetTotalRecords(pagination);
+            var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
 
             if (action.WasSuccess)
             {

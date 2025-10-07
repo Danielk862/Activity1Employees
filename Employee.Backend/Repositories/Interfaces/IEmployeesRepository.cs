@@ -8,6 +8,6 @@ namespace Employee.Backend.Repositories.Interfaces
     {
         Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(string chars);
         Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(PaginationDto pagination);
-        Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination);
+        Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDto pagination);
     }
 }

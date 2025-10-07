@@ -159,7 +159,7 @@ namespace Employee.Backend.Repositories.Implementations
             };
         }
 
-        public virtual async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination)
+        public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDto pagination)
         {
             var queryable = _entity.AsQueryable();
             double count = await queryable.CountAsync();

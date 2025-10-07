@@ -34,7 +34,7 @@ namespace Employee.Backend.UnitsOfWork.Implementations
 
         public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDto pagination) => await _genericRepository.GetAsync(pagination);
 
-        public virtual async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination) => await _genericRepository.GetTotalRecords(pagination);
+        public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDto pagination) => await _genericRepository.GetTotalRecordsAsync(pagination);
         #endregion
     }
 }

@@ -52,7 +52,7 @@ namespace Employee.Backend.Repositories.Implementations
             };
         }
 
-        public override async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination)
+        public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDto pagination)
         {
             var queryable = _context.employees.AsQueryable();
 

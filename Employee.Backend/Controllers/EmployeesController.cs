@@ -29,10 +29,23 @@ namespace Employee.Backend.Controllers
         }
 
         [HttpGet("paginated")]
-        public override async Task<IActionResult> GetAsync(PaginationDto pagination)
+        public override async Task<IActionResult> GetAsync([FromQuery] PaginationDto pagination)
         {
             var action = await _unitOfWork.GetAsync(pagination);
             
+            if (action.WasSuccess)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest();
+        }
+
+
+        [HttpGet("totalRecords")]
+        public override async Task<IActionResult> GetTotalRFecordsAsync([FromQuery] PaginationDto pagination)
+        {
+            var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
+
             if (action.WasSuccess)
             {
                 return Ok(action.Result);
