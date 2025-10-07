@@ -1,5 +1,6 @@
 ﻿
 using Employee.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Backend.Data
 {
@@ -15,7 +16,17 @@ namespace Employee.Backend.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
+            await CheckData();
             await CheckEmployee();
+        }
+
+        private async Task CheckData()
+        {
+            if (!_context.employees.Any())
+            {
+                var employess = File.ReadAllText("Data\\DataEmployees.sql");
+                await _context.Database.ExecuteSqlRawAsync(employess);
+            }
         }
 
         private async Task CheckEmployee()

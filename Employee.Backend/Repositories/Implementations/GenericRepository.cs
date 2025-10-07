@@ -1,9 +1,9 @@
 ﻿using Employee.Backend.Data;
+using Employee.Backend.Dtos;
+using Employee.Backend.Helpers;
 using Employee.Backend.Repositories.Interfaces;
 using Employee.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Employee.Backend.Repositories.Implementations
 {
@@ -49,18 +49,18 @@ namespace Employee.Backend.Repositories.Implementations
             };
         }
 
-        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(string fullnames)
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(string chars)
         {
-            var rows = await _entity
-                .Where(x => EF.Property<string>(x, "FirstName").Contains(fullnames) || EF.Property<string>(x, "LastName").Contains(fullnames))
-                .ToListAsync();
+            var rows = await _entity.ToListAsync();
 
-            if (rows != null)
+            var result = rows.Where(x => x.Equals(chars)).ToList();
+
+            if (result != null)
             {
                 return new ActionResponse<IEnumerable<T>>
                 {
                     WasSuccess = true,
-                    Result = rows
+                    Result = result
                 };
             }
 
@@ -146,6 +146,29 @@ namespace Employee.Backend.Repositories.Implementations
                     Messages = "No se puede eliminar el registro."
                 };
             }
+        }
+
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDto pagination)
+        {
+            var queryable = _entity.AsQueryable();
+
+            return new ActionResponse<IEnumerable<T>>
+            {
+                WasSuccess = true,
+                Result = await queryable.Paginate(pagination).ToListAsync()
+            };
+        }
+
+        public virtual async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination)
+        {
+            var queryable = _entity.AsQueryable();
+            double count = await queryable.CountAsync();
+
+            return new ActionResponse<int>
+            {
+                WasSuccess = true,
+                Result = (int)count
+            };
         }
         #endregion
 

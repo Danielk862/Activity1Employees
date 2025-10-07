@@ -19,6 +19,8 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=Localhost")
 #region Dependency injection
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
+builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+builder.Services.AddScoped<IEmployeesUnitOfWork, EmployeesUnitOfWork>();
 builder.Services.AddTransient<SeedDb>();
 #endregion
 

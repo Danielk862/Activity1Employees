@@ -1,7 +1,7 @@
-﻿using Employee.Backend.Repositories.Interfaces;
+﻿using Employee.Backend.Dtos;
+using Employee.Backend.Repositories.Interfaces;
 using Employee.Backend.UnitsOfWork.Interfaces;
 using Employee.Shared.Responses;
-using System.Linq.Expressions;
 
 namespace Employee.Backend.UnitsOfWork.Implementations
 {
@@ -24,13 +24,17 @@ namespace Employee.Backend.UnitsOfWork.Implementations
 
         public virtual async Task<ActionResponse<T>> GetAsync(int id) => await _genericRepository.GetAsync(id);
 
-        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(string fullnames) => await _genericRepository.GetAsync(fullnames);
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(string chars) => await _genericRepository.GetAsync(chars);
 
         public virtual async Task<ActionResponse<T>> AddAsync(T model) => await _genericRepository.AddAsync(model);
 
         public virtual async Task<ActionResponse<T>> UpdateAsync(T model) => await _genericRepository.UpdateAsync(model);
 
         public virtual async Task<ActionResponse<T>> DeleteAsync(int id) => await _genericRepository.DeleteAsync(id);
+
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDto pagination) => await _genericRepository.GetAsync(pagination);
+
+        public virtual async Task<ActionResponse<int>> GetTotalRecords(PaginationDto pagination) => await _genericRepository.GetTotalRecords(pagination);
         #endregion
     }
 }
