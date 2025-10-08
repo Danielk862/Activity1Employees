@@ -14,6 +14,10 @@ namespace Employee.Frontend.Components.Pages.Employees
 
         private async Task CreateAsync()
         {
+            if (Employee.HireDate.Equals(DateTime.Parse("01/01/0001")))
+            {
+                Employee.HireDate = DateTime.Now;
+            }
             var responseHttp = await Repository.PostAsync("api/Employees", Employee);
 
             if (responseHttp.Error)
