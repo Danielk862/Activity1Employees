@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace Employee.Frontend.Shared
+namespace Employee.Frontend.Components.Pages.Shared
 {
     public partial class ConfirmDialog
     {

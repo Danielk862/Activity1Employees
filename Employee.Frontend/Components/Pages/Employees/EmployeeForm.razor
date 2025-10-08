@@ -3,8 +3,8 @@
     <MudTextField Label="Nombres" @bind-Value="@Employees!.FirstName" For="@(() => Employees!.FirstName)" Required="true" Class="mb-4" />
     <MudTextField Label="Apellidos" @bind-Value="@Employees!.LastName" For="@(() => Employees!.LastName)" Required="true" Class="mb-4" />
     <MudCheckBox T="bool" Label="Estado" @bind-Value="@Employees!.IsActive" For="@(() => Employees!.IsActive)" Class="mb-4" />
-    <MudTextField Label="Fecha contratación" @bind-Value="@Employees!.HireDate" For="@(() => Employees!.HireDate)" InputType="InputType.Date" Required="true" Class="mb-4" />
-    <MudTextField Label="Salario" @bind-Value="@Employees!.Salary" For="@(() => Employees!.Salary)" Required="true" Class="mb-4" Pattern="^\d{1,15}$" />
+    <MudTextField Label="Fecha contratación" @bind-Value="@Employees!.HireDate" For="@(() => Employees!.HireDate)" Class="mb-4" />
+    <MudTextField Label="Salario" @bind-Value="@Employees!.Salary" For="@(() => Employees!.Salary)" Required="true" Class="mb-4" Pattern="^\d{1,15}(\.\d{1,2})?$" />
     <MudButton Variant="Variant.Outlined" Color="Color.Info" OnClick="ReturnAction"> <MudHidden xs="true"> Cancelar </MudHidden> </MudButton>
     <MudButton Variant="Variant.Outlined" Color="Color.Success" ButtonType="ButtonType.Submit"> <MudHidden xs="true"> Guardar </MudHidden> </MudButton>
 </EditForm>

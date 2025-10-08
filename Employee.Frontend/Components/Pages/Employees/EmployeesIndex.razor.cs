@@ -1,4 +1,4 @@
-using Employee.Frontend.Shared;
+using Employee.Frontend.Components.Pages.Shared;
 using Employee.Shared.Entities;
 using Employees.Frontend.Repositories;
 using Microsoft.AspNetCore.Components;
@@ -124,7 +124,7 @@ namespace Employee.Frontend.Components.Pages.Employees
         {
             var parameters = new DialogParameters
             {
-                { "Message ", $"Estas seguro de borrar el país: {employee.FirstName} {employee.LastName}"}
+                { "Message", $"Estas seguro de borrar el empleado: {employee.FirstName} {employee.LastName}"}
             };
 
             var options = new DialogOptions

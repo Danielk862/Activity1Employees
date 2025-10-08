@@ -15,4 +15,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Employee.Shared\Employee.Shared.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\question.png" />
+  </ItemGroup>
 </Project>

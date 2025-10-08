@@ -14,7 +14,7 @@ namespace Employee.Frontend.Components.Pages.Employees
 
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/Employees/AddAsync", Employee);
+            var responseHttp = await Repository.PostAsync("api/Employees", Employee);
 
             if (responseHttp.Error)
             {

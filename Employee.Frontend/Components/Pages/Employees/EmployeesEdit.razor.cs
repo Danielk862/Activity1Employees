@@ -16,7 +16,7 @@ namespace Employee.Frontend.Components.Pages.Employees
 
         protected override async Task OnInitializedAsync()
         {
-            var responseHttp = await Repository.GetAsync<EmployeeModel>($"api/Employees/Get/{Id}");
+            var responseHttp = await Repository.GetAsync<EmployeeModel>($"api/Employees/{Id}");
 
             if (responseHttp.Error)
             {
@@ -37,14 +37,14 @@ namespace Employee.Frontend.Components.Pages.Employees
         }
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("api/Employees/Update", Employee);
+            var responseHttp = await Repository.PutAsync("api/Employees", Employee);
             if (responseHttp.Error) { var messageError = await responseHttp.GetErrorMessageAsync(); Snackbar.Add(messageError!, Severity.Error); return; }
             Return(); Snackbar.Add("Registro actualizado.", Severity.Success);
         }
 
         private void Return()
         {
-            NavigationManager.NavigateTo("categories");
+            NavigationManager.NavigateTo("employees");
         }
     }
 }
