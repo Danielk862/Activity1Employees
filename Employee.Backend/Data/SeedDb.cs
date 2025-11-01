@@ -1,4 +1,6 @@
-﻿using Employee.Shared.Entities;
+﻿using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Entities;
+using Employee.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Backend.Data
@@ -6,10 +8,12 @@ namespace Employee.Backend.Data
     public class SeedDb
     {
         private readonly DataContext _context;
+        private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-        public SeedDb(DataContext context)
+        public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
         {
             _context = context;
+            _usersUnitOfWork = usersUnitOfWork;
         }
 
         public async Task SeedAsync()
@@ -19,6 +23,38 @@ namespace Employee.Backend.Data
             await CheckData();
             await CheckCountriesAsync();
             await CheckEmployee();
+            await CheckRolesAsync();
+            await CheckUserAsync("1037571662", "Daniel", "Gómez", "slipdany@hotmail.com", "3245702742", "Carrera 66BB # 56B", UserType.Admin);
+        }
+
+        private async Task CheckRolesAsync()
+        {
+            await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+            await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+        }
+
+        private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, UserType userType)
+        {
+            var user = await _usersUnitOfWork.GetUserAsync(email);
+
+            if (user == null)
+            {
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = phone,
+                    Address = address,
+                    Document = document,
+                    City = _context.cities.FirstOrDefault(),
+                    UserType = userType
+                };
+                await _usersUnitOfWork.AddUserAsync(user, "Daniel2021");
+                await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+            }
+            return user;
         }
 
         private async Task CheckCountriesFullAsync()
