@@ -144,7 +144,7 @@ namespace Employee.Backend.Repositories.Implementations
             {
                 return new ActionResponse<T>
                 {
-                    Messages = "No se puede eliminar el registro."
+                    Messages = "No se puede eliminar el registro, por q tiene datos relacionados."
                 };
             }
         }

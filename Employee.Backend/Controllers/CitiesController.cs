@@ -39,5 +39,13 @@ namespace Employee.Backend.Controllers
             }
             return BadRequest();
         }
+
+        [NonAction]
+        [HttpGet("{chars}")]
+        public override async Task<IActionResult> GetAsync(string chars)
+        {
+            await Task.CompletedTask;
+            return StatusCode(StatusCodes.Status405MethodNotAllowed);
+        }
     }
 }

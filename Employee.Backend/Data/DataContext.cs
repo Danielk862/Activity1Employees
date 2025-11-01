@@ -15,6 +15,20 @@ namespace Employee.Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<City>().HasIndex(x => new { x.Id, x.Name }).IsUnique();
+            modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<State>().HasIndex(x => new { x.Id, x.Name }).IsUnique();
+            DisableCascading(modelBuilder);
+        }
+
+        private void DisableCascading(ModelBuilder modelBuilder)
+        {
+            var relationship = modelBuilder.Model.GetEntityTypes().SelectMany(x => x.GetForeignKeys());
+
+            foreach (var item in relationship)
+            {
+                item.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }
