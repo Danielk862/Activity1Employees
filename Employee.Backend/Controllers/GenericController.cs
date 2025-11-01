@@ -1,5 +1,5 @@
-﻿using Employee.Backend.Dtos;
-using Employee.Backend.UnitsOfWork.Interfaces;
+﻿using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Employee.Backend.Controllers
@@ -25,7 +25,7 @@ namespace Employee.Backend.Controllers
             return BadRequest(action.Messages);
         }
 
-        [HttpGet("{id:int}")] 
+        [HttpGet("{id:int}")]
         public virtual async Task<IActionResult> GetAsync(int id)
         {
             var action = await _unitOfWork.GetAsync(id);
@@ -37,7 +37,7 @@ namespace Employee.Backend.Controllers
             return NotFound();
         }
 
-        [HttpGet("{chars}")] 
+        [HttpGet("{chars}")]
         public virtual async Task<IActionResult> GetAsync(string chars)
         {
             var action = await _unitOfWork.GetAsync(chars);
@@ -54,7 +54,7 @@ namespace Employee.Backend.Controllers
         {
             var action = await _unitOfWork.AddAsync(model);
 
-            if  (action.WasSuccess)
+            if (action.WasSuccess)
             {
                 return Ok(action.Result);
             }
@@ -99,7 +99,7 @@ namespace Employee.Backend.Controllers
         }
 
         [HttpGet("totalRecords")]
-        public virtual async Task<IActionResult> GetTotalRFecordsAsync([FromQuery] PaginationDto pagination)
+        public virtual async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDto pagination)
         {
             var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
 

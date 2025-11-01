@@ -1,6 +1,6 @@
-﻿using Employee.Backend.Dtos;
-using Employee.Backend.Repositories.Interfaces;
+﻿using Employee.Backend.Repositories.Interfaces;
 using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Responses;
 
 namespace Employee.Backend.UnitsOfWork.Implementations

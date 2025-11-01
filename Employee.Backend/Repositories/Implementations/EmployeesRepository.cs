@@ -1,7 +1,7 @@
 ﻿using Employee.Backend.Data;
-using Employee.Backend.Dtos;
 using Employee.Backend.Helpers;
 using Employee.Backend.Repositories.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Employee.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +43,7 @@ namespace Employee.Backend.Repositories.Implementations
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()) || x.LastName.ToLower().Contains(pagination.Filter.ToLower()));
-            } 
+            }
 
             return new ActionResponse<IEnumerable<EmployeeModel>>
             {

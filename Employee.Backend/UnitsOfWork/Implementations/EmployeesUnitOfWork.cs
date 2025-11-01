@@ -1,6 +1,6 @@
-﻿using Employee.Backend.Dtos;
-using Employee.Backend.Repositories.Interfaces;
+﻿using Employee.Backend.Repositories.Interfaces;
 using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Employee.Shared.Responses;
 
@@ -15,7 +15,7 @@ namespace Employee.Backend.UnitsOfWork.Implementations
             _employeesRepository = employeesRepository;
         }
 
-        public override async Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(string chars) => 
+        public override async Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(string chars) =>
             await _employeesRepository.GetAsync(chars);
 
         public override async Task<ActionResponse<IEnumerable<EmployeeModel>>> GetAsync(PaginationDto pagination) => await _employeesRepository.GetAsync(pagination);

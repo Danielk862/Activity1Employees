@@ -1,5 +1,5 @@
-﻿using Employee.Backend.Dtos;
-using Employee.Backend.UnitsOfWork.Interfaces;
+﻿using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +11,7 @@ namespace Employee.Backend.Controllers
     {
         private readonly IEmployeesUnitOfWork _unitOfWork;
 
-        public EmployeesController(IGenericUnitOfWork<EmployeeModel> unit, IEmployeesUnitOfWork unitOfWork) : base(unit) 
+        public EmployeesController(IGenericUnitOfWork<EmployeeModel> unit, IEmployeesUnitOfWork unitOfWork) : base(unit)
         {
             _unitOfWork = unitOfWork;
         }
@@ -32,7 +32,7 @@ namespace Employee.Backend.Controllers
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDto pagination)
         {
             var action = await _unitOfWork.GetAsync(pagination);
-            
+
             if (action.WasSuccess)
             {
                 return Ok(action.Result);
@@ -42,7 +42,7 @@ namespace Employee.Backend.Controllers
 
 
         [HttpGet("totalRecords")]
-        public override async Task<IActionResult> GetTotalRFecordsAsync([FromQuery] PaginationDto pagination)
+        public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDto pagination)
         {
             var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
 

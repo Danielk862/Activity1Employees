@@ -1,5 +1,4 @@
-﻿
-using Employee.Shared.Entities;
+﻿using Employee.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Backend.Data
@@ -16,8 +15,19 @@ namespace Employee.Backend.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
+            await CheckCountriesFullAsync();
             await CheckData();
+            await CheckCountriesAsync();
             await CheckEmployee();
+        }
+
+        private async Task CheckCountriesFullAsync()
+        {
+            if (!_context.countries.Any())
+            {
+                var countriesSqlScript = File.ReadAllText("Data\\CountriesStatesCities.sql");
+                await _context.Database.ExecuteSqlRawAsync(countriesSqlScript);
+            }
         }
 
         private async Task CheckData()
@@ -27,6 +37,70 @@ namespace Employee.Backend.Data
                 var employess = File.ReadAllText("Data\\DataEmployees.sql");
                 await _context.Database.ExecuteSqlRawAsync(employess);
             }
+        }
+
+        private async Task CheckCountriesAsync()
+        {
+            if (!_context.countries.Any())
+            {
+                _context.countries.Add(new Country
+                {
+                    Name = "Colombia",
+                    States = [
+                        new State()
+                        {
+                            Name = "Antioquia",
+                            Cities = [
+                                new City() { Name = "Medellín"},
+                                new City() { Name = "Itagui"},
+                                new City() { Name = "Envigado"},
+                                new City() { Name = "Bello"},
+                                new City() { Name = "Rionegro"}
+                            ]
+                        },
+                        new State()
+                        {
+                            Name = "Bogotá",
+                            Cities = [
+                                new City() { Name = "Usaquen"},
+                                new City() { Name = "Chapinero"},
+                                new City() { Name = "Santa fe"},
+                                new City() { Name = "Usme"},
+                                new City() { Name = "Bosa"}
+                            ]
+                        }
+                    ],
+                });
+                _context.countries.Add(new Country
+                {
+                    Name = "Estados Unidos",
+                    States = [
+                        new State()
+                        {
+                            Name = "Florida",
+                            Cities = [
+                                new City() { Name = "Orlando" },
+                                new City() { Name = "Miami" },
+                                new City() { Name = "Tampa" },
+                                new City() { Name = "Fort Lauderdale" },
+                                new City() { Name = "Key Wets" }
+                            ]
+                        },
+                        new State() {
+                            Name = "Texas",
+                            Cities = [
+                                new City() { Name = "Houston" },
+                                new City() { Name = "San antonio" },
+                                new City() { Name = "Dallas" },
+                                new City() { Name = "Austin" },
+                                new City() { Name = "El paso" },
+                            ]
+                        }
+                    ]
+                });
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         private async Task CheckEmployee()

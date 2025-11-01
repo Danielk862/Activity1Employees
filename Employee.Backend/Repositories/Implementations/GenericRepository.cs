@@ -1,9 +1,10 @@
 ﻿using Employee.Backend.Data;
-using Employee.Backend.Dtos;
 using Employee.Backend.Helpers;
 using Employee.Backend.Repositories.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Employee.Backend.Repositories.Implementations
 {
@@ -173,8 +174,6 @@ namespace Employee.Backend.Repositories.Implementations
         #endregion
 
         #region Methods Private
-
-
         private ActionResponse<T> DbUpdateExceptionActionResponse() => new ActionResponse<T> { Messages = "Ya existe el registro." };
 
         private ActionResponse<T> ExceptionActionResponse(Exception ex) => new ActionResponse<T> { Messages = ex.Message };
