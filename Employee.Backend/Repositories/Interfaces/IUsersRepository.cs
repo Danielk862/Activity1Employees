@@ -1,4 +1,5 @@
-﻿using Employee.Shared.Entities;
+﻿using Employee.Shared.Dtos;
+using Employee.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Employee.Backend.Repositories.Interfaces
@@ -10,5 +11,7 @@ namespace Employee.Backend.Repositories.Interfaces
         Task CheckRoleAsync(string roleName);
         Task AddUserToRoleAsync(User user, string roleName);
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task<SignInResult> LoginAsync(LoginDto model);
+        Task LogOutAsync();
     }
 }

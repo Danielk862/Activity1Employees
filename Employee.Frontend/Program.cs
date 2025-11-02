@@ -1,5 +1,7 @@
+using Employee.Frontend.AuthenticationProviders;
 using Employee.Frontend.Components;
 using Employees.Frontend.Repositories;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,10 +13,12 @@ builder.Services.AddMudServices();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddScoped(_ => new HttpClient 
+builder.Services.AddSingleton(_ => new HttpClient 
 { 
     BaseAddress = new Uri("https://localhost:7263/") 
 });
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();

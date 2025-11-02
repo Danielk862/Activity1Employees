@@ -1,5 +1,6 @@
 ﻿using Employee.Backend.Repositories.Interfaces;
 using Employee.Backend.UnitsOfWork.Interfaces;
+using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,5 +22,9 @@ namespace Employee.Backend.UnitsOfWork.Implementations
         public async Task<User> GetUserAsync(string email) => await _usersRepository.GetUserAsync(email);
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName) => await _usersRepository.IsUserInRoleAsync(user, roleName);
+
+        public async Task<SignInResult> LoginAsync(LoginDto model) => await _usersRepository.LoginAsync(model);
+
+        public async Task LogOutAsync() => await _usersRepository.LogOutAsync();
     }
 }
