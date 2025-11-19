@@ -1,4 +1,5 @@
-﻿using Employee.Backend.UnitsOfWork.Interfaces;
+﻿using Employee.Backend.Helpers;
+using Employee.Backend.UnitsOfWork.Interfaces;
 using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -14,18 +15,30 @@ namespace Employee.Backend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUsersUnitOfWork _usersUnitOfWork;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration; 
+        private readonly IFileStorage _fileStorage; 
+        private readonly string _container;
 
-        public UsersController(IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration)
+        public UsersController(IUsersUnitOfWork usersUnitOfWork, IConfiguration configuration, IFileStorage fileStorage)
         {
             _usersUnitOfWork = usersUnitOfWork;
             _configuration = configuration;
+            _fileStorage = fileStorage; 
+            _container = "users";
         }
+
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO model)
         {
-            User user = model; var result = await _usersUnitOfWork.AddUserAsync(user, model.Password);
+            User user = model; 
 
+            if (!string.IsNullOrEmpty(model.Photo)) 
+            { 
+                var photoUser = Convert.FromBase64String(model.Photo); 
+                model.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container); 
+            }
+
+            var result = await _usersUnitOfWork.AddUserAsync(user, model.Password);
             if (result.Succeeded)
             {
                 await _usersUnitOfWork.AddUserToRoleAsync(user, user.UserType.ToString());

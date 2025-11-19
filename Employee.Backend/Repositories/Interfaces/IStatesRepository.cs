@@ -6,6 +6,7 @@ namespace Employee.Backend.Repositories.Interfaces
 {
     public interface IStatesRepository
     {
+        Task<IEnumerable<State>> GetComboAsync(int countryId);
         Task<ActionResponse<State>> GetAsync(int id);
         Task<ActionResponse<IEnumerable<State>>> GetAsync();
         Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDto pagination);

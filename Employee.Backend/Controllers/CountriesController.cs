@@ -1,4 +1,5 @@
-﻿using Employee.Backend.UnitsOfWork.Interfaces;
+﻿using Employee.Backend.UnitsOfWork.Implementations;
+using Employee.Backend.UnitsOfWork.Interfaces;
 using Employee.Shared.Dtos;
 using Employee.Shared.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,6 +18,13 @@ namespace Employee.Backend.Controllers
         public CountriesController(IGenericUnitOfWork<Country> unit, ICountriesUnitOfWork unitOfWork) : base(unit)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo")] 
+        public async Task<IActionResult> GetComboAsync()
+        { 
+            return Ok(await _unitOfWork.GetComboAsync()); 
         }
 
         [HttpGet]

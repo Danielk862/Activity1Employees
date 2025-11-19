@@ -17,6 +17,11 @@ namespace Employee.Backend.Repositories.Implementations
             _dataContext = dataContext;
         }
 
+        public async Task<IEnumerable<City>> GetComboAsync(int stateId) 
+        { 
+            return await _dataContext.cities.Where(c => c.StateId == stateId).OrderBy(c => c.Name).ToListAsync(); 
+        }
+
         public override async Task<ActionResponse<IEnumerable<City>>> GetAsync(PaginationDto pagination)
         {
             var queryable = _dataContext.cities

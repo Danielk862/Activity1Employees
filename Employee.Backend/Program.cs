@@ -1,4 +1,5 @@
 using Employee.Backend.Data;
+using Employee.Backend.Helpers;
 using Employee.Backend.Repositories.Implementations;
 using Employee.Backend.Repositories.Interfaces;
 using Employee.Backend.UnitsOfWork.Implementations;
@@ -46,6 +47,7 @@ builder.Services.AddSwaggerGen(c =>
         } 
     });
 });
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
     {
@@ -67,6 +69,7 @@ builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<IStatesRepository, StatesRepository>();
 builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IFileStorage, FileStorage>();
 #endregion
 
 #region UnitOfWork

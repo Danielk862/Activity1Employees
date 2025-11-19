@@ -15,7 +15,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton(_ => new HttpClient 
 { 
-    BaseAddress = new Uri("https://localhost:7263/") 
+    BaseAddress = new Uri("https://localhost:7264/") 
 });
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();

@@ -16,6 +16,10 @@ namespace Employee.Backend.Repositories.Implementations
         {
             _dataContext = dataContext;
         }
+        public async Task<IEnumerable<Country>> GetComboAsync() 
+        { 
+            return await _dataContext.countries.OrderBy(c => c.Name).ToListAsync(); 
+        }
 
         public override async Task<ActionResponse<IEnumerable<Country>>> GetAsync()
         {

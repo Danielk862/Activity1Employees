@@ -15,6 +15,8 @@ namespace Employee.Backend.UnitsOfWork.Implementations
             _statesRepository = statesRepository;
         }
 
+        public async Task<IEnumerable<State>> GetComboAsync(int countryId) => await _statesRepository.GetComboAsync(countryId);
+
         public override async Task<ActionResponse<State>> GetAsync(int id) =>
             await _statesRepository.GetAsync(id);
 
