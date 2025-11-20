@@ -43,7 +43,7 @@ namespace Employees.Frontend.Repositories
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
-        public async Task<HttpResponseWrapper<T>> PostAsync<T, TActionResponse>(string url, T model)
+        public async Task<HttpResponseWrapper<TActionResponse>> PostAsync<T, TActionResponse>(string url, T model)
         {
             var messageJSON = JsonSerializer.Serialize(model);
             var messageContent = new StringContent(messageJSON, Encoding.UTF8, "application/json");
@@ -51,10 +51,10 @@ namespace Employees.Frontend.Repositories
 
             if (responseHttp.IsSuccessStatusCode)
             {
-                var response = await UnserializeAnswerAsync<T>(responseHttp);
-                return new HttpResponseWrapper<T>(response, false, responseHttp);
+                var response = await UnserializeAnswerAsync<TActionResponse>(responseHttp);
+                return new HttpResponseWrapper<TActionResponse>(response, false, responseHttp);
             }
-            return new HttpResponseWrapper<T>(default, !responseHttp.IsSuccessStatusCode, responseHttp);
+            return new HttpResponseWrapper<TActionResponse>(default, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
         public async Task<HttpResponseWrapper<object>> PutAsync<T>(string url, T model)

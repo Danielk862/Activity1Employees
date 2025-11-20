@@ -6,7 +6,11 @@ namespace Employee.Backend.Helpers
     public class FileStorage : IFileStorage
     {
         private readonly string _connectionString;
-        public FileStorage(IConfiguration configuration) { _connectionString = configuration.GetConnectionString("AzureStorage")!; }
+        public FileStorage(IConfiguration configuration) 
+        { 
+            _connectionString = configuration.GetConnectionString("AzureStorage")!;
+        }
+
         public async Task RemoveFileAsync(string path, string containerName)
         {
             var client = new BlobContainerClient(_connectionString, containerName);
