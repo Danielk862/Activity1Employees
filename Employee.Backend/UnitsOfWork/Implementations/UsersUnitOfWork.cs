@@ -26,5 +26,8 @@ namespace Employee.Backend.UnitsOfWork.Implementations
         public async Task<SignInResult> LoginAsync(LoginDto model) => await _usersRepository.LoginAsync(model);
 
         public async Task LogOutAsync() => await _usersRepository.LogOutAsync();
+        public async Task<User> GetUserAsync(Guid userId) => await _usersRepository.GetUserAsync(userId);
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword) => await _usersRepository.ChangePasswordAsync(user, currentPassword, newPassword);
+        public async Task<IdentityResult> UpdateUserAsync(User user) => await _usersRepository.UpdateUserAsync(user);
     }
 }
